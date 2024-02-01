@@ -1,5 +1,8 @@
 import os
-restaurantes = ['saborsertao', 'sabornenca']
+# restaurantes = ['saborsertao', 'sabornenca']
+restaurantes = [{'nome': 'Saborsertao', 'categoria': 'Almoço', 'Ativação': True},
+                {'nome': 'NordesteJantar', 'categoria': 'Jantar', 'Ativação': False},
+                {'nome': 'Pizzariatodo', 'categoria': 'Pizza', 'Ativação': True}]
 
 
 def exibir_nome_do_programa():
@@ -20,6 +23,16 @@ def exibir_opcoes():
     print('4. Sair\n')
 
 
+def exibir_nome(exibir_titulo):
+    os.system('cls')
+    print(exibir_titulo)
+
+
+def limpar_terminal():
+    input('Selecione qualquer tecla para recomecar:')
+    main()
+
+
 def finalizar_app():
     os.system('cls')
     # os.system('clear')
@@ -28,27 +41,32 @@ def finalizar_app():
 
 def opcao_incorreta():
     print('você inseriu uma opção incorreta\n!')
-    input('Selecione qualquer tecla para recomeçar:')
-    main()
+    limpar_terminal()
 
 
 def listar_restaurante():
-    os.system('cls')
-    print('Listar Restaurantes Cadastrado:\n')
-    for restaurante in restaurantes:
-        print(f'.{restaurante}')
-    input('Selecione qualquer tecla para recomecar:')
-    main()
+    exibir_nome('Listar Restaurantes Cadastrado:\n')
+    for nome_restaurante in restaurantes:
+        filtro_nome = nome_restaurante['nome']
+        filtro_categoria = nome_restaurante['categoria']
+        filtro_status = nome_restaurante['Ativação']
+        filtro_status = 'Ativado' if filtro_status == True else 'Desativado'
+        print(f'{filtro_nome}|{filtro_categoria}|{filtro_status}')
+    limpar_terminal()
 
 
 def cadastrar_restaurante():
-    os.system('cls')
-    print('Cadastrar Restaurantes')
+    exibir_nome('Cadastar Restaurante!\n')
     nome_restaurante = input('Informe o nome do restaurante:')
     restaurantes.append(nome_restaurante)
     print(f'O restaurante {nome_restaurante} foi cadastrado com sucesso!\n')
-    input('Digite uma tecla para voltar ao menu principal:')
-    main()
+    limpar_terminal()
+
+
+def alterando_status_restaurante():
+    exibir_nome('Ativer ou Desativar Restaurente')
+
+    limpar_terminal()
 
 
 def escolher_opcao():
@@ -61,7 +79,7 @@ def escolher_opcao():
         elif opcao_escolhida == 2:
             listar_restaurante()
         elif opcao_escolhida == 3:
-            print('Ativar restaurante')
+            alterando_status_restaurante()
         elif opcao_escolhida == 4:
             finalizar_app()
         else:
